@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<favorite_books>
+   <book id="bk101">
+      <title>QR Codes For The Creative Business Person</title>
+	  <authors>Dr. Chris Thomas</authors>
+      <genre>Self help</genre>
+	  <publisher>Milton Contact Limited</publisher>
+	  <year>2012</year>
+	  <isbn>9780956264992</isbn>
+      <price>$16</price>    
+   </book>
+   <book id="bk102">
+      <title>Scan Me: Everybody's Guide to the Magical World of QR Codes</title>
+      <authors>Mick Winter</authors>
+      <genre>Guide</genre>
+	  <publisher>Westsong Publishing</publisher>
+	  <year>2011</year>
+	  <isbn>9780965900034</isbn>
+      <price>$15.95</price>
+   </book>
+   <book id="bk103">
+      <title>40 Ways to Use QR Codes For Mobile Marketing</title>
+      <authors>Jeff A Hamilton,Joan Mullally,Andrew P Simon</authors>
+      <genre>Guide</genre>
+	  <publisher>External Spiral Books</publisher>
+	  <year>2013</year>
+	  <isbn>None</isbn>
+	  <price>$2.99</price>
+   </book>
+</favorite_books>
