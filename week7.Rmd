@@ -1,0 +1,205 @@
+
+---
+# title: "DATA 607 WEEK 7 ASSIGNMENT <br /> WORKING WITH HTML, XML AND JSON IN R"
+# author: "[Kleber Perez - `r format(Sys.Date(), '%B %d, %Y')`](https://www.linkedin.com/in/kleberperez/)"
+output: 
+  html_document:
+    #code_folding: show
+    theme:  sandstone
+    highlight: pygments
+    css: ./w7css.css
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+# 1. Library
+library(kableExtra)
+library(rvest)
+library(dplyr)
+library(XML)
+library(RCurl)
+library(rjson)
+library(RJSONIO)
+library(jsonlite)
+
+```
+
+<div class="jumbotron jumbotron-fluid">
+  <div class="btn btn-default btn-block">
+  <br />
+  
+  <p class="lead">DATA 607 WEEK 7 ASSIGNMENT <br />WORKING WITH HTML, XML AND JSON IN R <br />[`r format(Sys.Date(), '%B %d, %Y')`](https://www.linkedin.com/in/kleberperez/) </p>
+
+  <p class="lead">SOURCE FILES, R SCRIPTS AND RMARKDOWN ON GITHUB </p>
+
+  <a class="label label-success" href="https://www.linkedin.com/in/kleberperez/" target="_blank" role="button">KLEBER PEREZ</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <a class="label label-success" href="http://rpubs.com/kleberperez/477939" role="button">RPUBS</a>
+  <a class="label label-success" href="https://github.com/kleberperez1/CUNY-SPS-Data607-Project3" role="button">GITHUB</a>
+
+  <br />
+  
+  </div>
+</div>
+
+
+# <span id="maintop">Favorite books and subjects!</span> {.tabset .tabset-dropdown}
+
+## Please make a selection to continue..
+
+## <span id="gotohtml">HTML books</span> 
+
+<div class="jumbotron jumbotron-fluid">
+
+## Reading HTML Table Format
+
+<div class="alert alert-info" role="alert">
+An HTML table format is defined with the <span class="label label-info badge">&nbsp; &lt;table&gt; &nbsp;</span> tag.
+Each table row is defined with the <span class="label label-info badge">&nbsp; &lt;tr&gt; &nbsp;</span> tag. A table header is defined with the <span class="label label-info badge">&nbsp; &lt;th&gt; &nbsp;</span> tag. By default, table headings are bold and centered. A table data/cell is defined with the <span class="label label-info badge">&nbsp; &lt;td&gt; &nbsp;</span> tag.
+</div> 
+</div>
+
+<div class="jumbotron jumbotron-fluid">
+
+```{r}
+# html variable in R 
+url_html <- read_html("https://raw.githubusercontent.com/kleberperez1/CUNY-SPS-Data607-Week7-Assignment/master/books.html")
+
+tabs <- url_html %>%
+  html_nodes("table") %>%
+  html_table(fill = TRUE)
+html_frame <- tabs[[1]]
+
+kable(html_frame) %>%
+  kable_styling(bootstrap_options = "striped", font_size = 10) %>%
+  scroll_box()
+
+```
+
+<br />
+
+</div>
+
+<a href="#maintop">Go to top</a>
+
+<br />
+
+## <span id="gotoxml">XML books &nbsp;</span> 
+
+<div class="jumbotron jumbotron-fluid">
+
+## Reading XML File Format
+
+<div class="alert alert-info" role="alert">
+
+<span class="label label-info badge">XML</span> is a file extension for an Extensible Markup Language (<span class="label label-info badge">XML</span>) file format used to create common information formats and share both the format and the data on the World Wide Web, intranets, and elsewhere using standard ASCII text. <span class="label label-info badge">XML</span> is similar to <span class="label label-info badge">HTML</span>.
+
+</div> 
+</div>
+
+<div class="jumbotron jumbotron-fluid">
+
+```{r df}
+xmlfile<-getURL("https://raw.githubusercontent.com/kleberperez1/CUNY-SPS-Data607-Week7-Assignment/master/books.xml")
+xmlBooks<-tbl_df(xmlToDataFrame(xmlfile))
+
+xmlBooks %>% kable() %>% kable_styling(bootstrap_options = "striped", font_size = 10) %>% scroll_box()
+
+```
+
+<br />
+
+</div>
+
+
+<a href="#maintop">Go to top</a>
+
+<br />
+
+
+## <span id="gotojson">JSON books</span> 
+
+<div class="jumbotron jumbotron-fluid">
+
+## Reading JSON Syntax
+
+<div class="alert alert-info" role="alert">
+
+The <span class="label label-info badge">JSON</span> syntax is a subset of the <span class="label label-info badge">JavaScript</span> syntax. <br />
+<span class="label label-info badge">JSON</span> data is written as name/value pairs. <br />
+A name/value pair consists of a field name (in double quotes), followed by a colon, followed by a value:
+<span class="label label-info badge">"name":"John"</span>.
+
+</div> 
+</div>
+
+<div class="jumbotron jumbotron-fluid">
+
+```{r}
+jsonFile<-"https://raw.githubusercontent.com/kleberperez1/CUNY-SPS-Data607-Week7-Assignment/master/books.json"
+isValidJSON(jsonFile)
+
+jsonbooks<-tbl_df(as.data.frame(fromJSON(jsonFile)))
+jsonbooks %>% kable() %>% kable_styling(bootstrap_options = "striped", font_size = 10) %>% scroll_box()
+
+```
+
+<br />
+
+</div>
+
+<a href="#maintop">Go to top</a>
+
+<br />
+
+
+## <span id="gotoconclusion">Conclusion</span> 
+
+<div class="jumbotron jumbotron-fluid">
+
+## Conclusion
+
+<div class="alert alert-info" role="alert">
+
+  <span class="label label-default">Are the three data frames identical? </span> <br />
+  <span class="label label-info">The three data frames are not the identical. The data size for the three files are different.<br />The <span class="label label-info badge">HTML</span> data frame is the largest of all, followed by the <span class="label label-info badge">JSON</span> data frame and lastly <br />the <span class="label label-info badge">XML</span> data frame is the smallest in size.</span>
+
+</div>
+</div> 
+
+<div class="jumbotron jumbotron-fluid">
+  <div class="btn btn-default btn-block">
+
+  <p class="lead">SOURCE FILES, R SCRIPTS AND RMARKDOWN ON GITHUB </p>
+  <a class="label label-success" href="http://rpubs.com/kleberperez/477939" role="button">RPUBS</a>
+  <a class="label label-success" href="https://github.com/kleberperez1/CUNY-SPS-Data607-Project3" role="button">GITHUB</a>
+
+  </div>
+</div>
+
+<a href="#maintop">Go to top</a>
+
+</div>
+
+# &nbsp;
+
+<br />
+
+* * *
+
+
+> *Please email to: * <a href="mailto:kleber.perez@live.com">Kleber Perez</a> *for any suggestion.*
+
+<footer class="border-top text-muted fixed-bottom">
+
+        DATA 607 Week 7 Assignment - MSDS 2019 Program.
+
+</footer>
+
+\textbf{Text ignored: END of other links}
+
+<br />
+<br />
+<br />
+<br />
+
+
